@@ -1,0 +1,21 @@
+
+body, html {
+	margin: 0; 
+	background-image: url("../images/earth.jpg");
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.game, .head {
+	background-color: lightgrey;
+    border: 15px solid #1d375b;
+    padding: 25px;
+    margin: 50px;
+}
+.game {
+	margin-top: 15px;
+	padding: 10px;
+
+}
