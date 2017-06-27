@@ -2,15 +2,15 @@ $(document).ready(function() {
 
 
 var trivia = {
-	questions: ["1. What is the name of the disease that has been referred to as the 'disease of kings'?", "2. What disease causes a buildup of fluid pressure in the eyeball and damages the optic nerve at the back of the eye?","3. In which century was the greatest number of chemical elements discovered?","4. Which two planets are most similar in size diameter wise?","5. Louis Pasteur developed which vaccine?"],
+	questions: ["What is the name of the disease that has been referred to as the 'disease of kings'?", "What disease causes a buildup of fluid pressure in the eyeball and damages the optic nerve at the back of the eye?","In which century was the greatest number of chemical elements discovered?","Which two planets are most similar in size diameter wise?","Louis Pasteur developed which vaccine?", "Which one of the following instruments is used to measure humidity?","Many scientists think that some of the dinosaurs did not go extinct, but rather evolved into what kind of creature?","What would be the most likely thing one would do with the compound MgSO4 7H2O?","What causes the disease toxoplasmosis?"],
 	guesses: {
-		first: ["A. hemophilia", "A. astigmatism", "A. 17th","A. Mars and Mercury","A. polio"],
-		second: ["B. jaundice","B. cataract", "B. 18th","B. Venus and Earth", "B. rabies"],
-		third: ["C. rubella","C. glaucoma","C. 19th", "C. Uranus and Neptune", "C. smallpox"],
-		fourth: ["D. syphilis","D. retinitis","D. 20th", "D. Jupiter and Saturn", "D. anthrax"]
+		first: ["A. hemophilia", "A. astigmatism", "A. 17th","A. Mars and Mercury","A. polio", "A. anemometer","A. amphibians","A. power a car", "A. a bacterium"],
+		second: ["B. jaundice","B. cataract", "B. 18th","B. Venus and Earth", "B. rabies", "B. ammeter","B. reptiles","B. blow up a building","B. a protozoan"],
+		third: ["C. rubella","C. glaucoma","C. 19th", "C. Uranus and Neptune", "C. smallpox","C. hygrometer","C. birds","C. soak ones feet","C. a virus"],
+		fourth: ["D. syphilis","D. retinitis","D. 20th", "D. Jupiter and Saturn", "D. anthrax", "D. barometer","D. mammals","D. fertilize a lawn","D. a prion"]
 	},
-	correct: ["A. hemophilia","C. glaucoma", "C. 19th", "B. Venus and Earth","B. rabies"],
-	images: ["assets/images/hemophilia.jpg","assets/images/glaucoma.jpg","assets/images/chemist.gif","assets/images/VenusEarth.jpg", "assets/images/rabies.gif"],
+	correct: ["A. hemophilia","C. glaucoma", "C. 19th", "B. Venus and Earth","B. rabies","C. hygrometer","C. birds","C. soak ones feet","B. a protozoan"],
+	images: ["assets/images/hemophilia.jpg","assets/images/glaucoma.jpg","assets/images/chemist.gif","assets/images/VenusEarth.jpg", "assets/images/rabies.gif","assets/images/hygrometer.jpg","assets/images/bird.jpg","assets/images/feet.jpg","assets/images/protozoa.jpg"],
 
 	right: 0,
 	wrong: 0,
@@ -27,6 +27,8 @@ var number = 15;
 
 //variable to hold the interval ID when we execute the run function
 var intervalId;
+//don't show timer until game starts
+$(".timer").css('visibility','hidden');
 
 //the run function sets an interval that decrements once a second
 function run () {
@@ -36,7 +38,7 @@ function run () {
 //the decrement function
 function decrement() {
 
-	$(".start").html("<h2>" + "Time Remaining: " + number + " Seconds" + "</h2>");
+	$(".timer").html("<h2><strong>" + "Time Remaining: " + number + " Seconds" + "</strong></h2>");
 	
 	number--;
 		
@@ -47,14 +49,14 @@ function decrement() {
 		timeUp();
 	}
 	else if (number <= 4){
-		$(".start").html("<h2 style= 'color: red'>" + "Time Remaining: " + number + " Seconds" + "</h2>");
+		$(".timer").html("<h2 style= 'color: red'>" + "Time Remaining: " + number + " Seconds" + "</h2>");
 	}
 
 }
 function stop() {
 	//clears the interval.  Just pass the name of the interval to the clearInterval function.
 	clearInterval(intervalId);
-	$(".start").hide();
+
 }
 
 function resetInterval() {
@@ -78,8 +80,8 @@ function question(){
 	$(".guesses").show();
 	$(".img").hide();
 
-
-	$(".start").show();
+    $(".timer").css('visibility','visible');
+	
 	$(".question").html("<h2>" + trivia.questions[count]+"</h2>");
 	$(".guesses1").html("<h2>" + trivia.guesses.first[count]+"</h2>");
 	$(".guesses2").html("<h2>" + trivia.guesses.second[count]+"</h2>");
@@ -119,12 +121,12 @@ function correct(){
 function nextQuestion(){
 	
 	//setTimeout to run to display the next question
-	setTimeout(question, 3000);
+	setTimeout(question, 5000);
 	}
 
 //function to run when time runs out on the question
 function timeUp(){
-
+	$(".timer").css('visibility','hidden');
 	$(".question").html("<h2>You Ran Out of Time." +"<br>" + "The correct answer was: " + trivia.correct[count]+"</h2>");
 	$(".guesses").hide();
 	$(".img").show();
@@ -137,8 +139,9 @@ function timeUp(){
 //function to run when game is over and load final page
 function results(){
 
-	$(".question").html("<h2>CORRECT: " +trivia.right +"</h2>");
-	$(".img").html("<h2>INCORRECT: " + trivia.wrong +"</h2>");
+	$(".timer").hide();
+	$(".question").html("<h2>CORRECT: " +trivia.right +" out of " +trivia.questions.length+"</h2>");
+	$(".img").html("<h2>INCORRECT: " + trivia.wrong +" out of " + trivia.questions.length +"</h2>");
 	count = 0;
 	restart();
 
@@ -156,10 +159,7 @@ function restart(){
 	});
 }
 
-$(".start").on("click",function(){	
-	question();
-	});
-
+//jquery calls to color the answers
 $(".guesses1").on("click", function(){
 		stop();
 
@@ -206,19 +206,57 @@ $(".guesses1").on("click", function(){
 
 $(".start").hover(function() {
 	$(this).css("cursor","pointer");
+	$(this).css("background-color","#1d375b");
+	$(this).css("color","#b5b6cb");
 	});
+$(".start").mouseout(function() {
+	$(this).css("background-color","#b5b6cb");
+	$(this).css("color","#1d375b");
+	});
+
 $(".guesses1").hover(function(){
-	$(this).css("cursor","pointer");	
+	$(this).css("cursor","pointer");
+	$(this).css("background-color","#1d375b");
+	$(this).css("color","#b5b6cb");	
 	});
-	$(".guesses2").hover(function(){
+$(".guesses1").mouseout(function() {
+	$(this).css("background-color","#b5b6cb");
+	$(this).css("color","#1d375b");
+	});
+$(".guesses2").hover(function(){
 		$(this).css("cursor","pointer");
+		$(this).css("background-color","#1d375b");
+		$(this).css("color","#b5b6cb");	
 	});
-	$(".guesses3").hover(function(){
+$(".guesses2").mouseout(function() {
+	$(this).css("background-color","#b5b6cb");
+	$(this).css("color","#1d375b");
+	});
+$(".guesses3").hover(function(){
 		$(this).css("cursor","pointer");
+		$(this).css("background-color","#1d375b");
+		$(this).css("color","#b5b6cb");	
 	});
-	$(".guesses4").hover(function(){
+$(".guesses3").mouseout(function() {
+	$(this).css("background-color","#b5b6cb");
+	$(this).css("color","#1d375b");
+	});
+$(".guesses4").hover(function(){
 		$(this).css("cursor","pointer");
+		$(this).css("background-color","#1d375b");
+		$(this).css("color","#b5b6cb");	
 	});
+$(".guesses4").mouseout(function() {
+	$(this).css("background-color","#b5b6cb");
+	$(this).css("color","#1d375b");
+	});
+
+//starts game
+$(".start").on("click",function(){	
+	$(".start").css('visibility','hidden');
+	question();
+	});
+
 
 });//end of document ready
 
