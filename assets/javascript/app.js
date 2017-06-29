@@ -10,10 +10,11 @@ var trivia = {
 		fourth: ["D. syphilis","D. retinitis","D. 20th", "D. Jupiter and Saturn", "D. anthrax", "D. barometer","D. mammals","D. fertilize a lawn","D. a prion"]
 	},
 	correct: ["A. hemophilia","C. glaucoma", "C. 19th", "B. Venus and Earth","B. rabies","C. hygrometer","C. birds","C. soak ones feet","B. a protozoan"],
-	images: ["assets/images/hemophilia.jpg","assets/images/glaucoma.jpg","assets/images/chemist.gif","assets/images/VenusEarth.jpg", "assets/images/rabies.gif","assets/images/hygrometer.jpg","assets/images/bird.jpg","assets/images/feet.jpg","assets/images/protozoa.jpg"],
+	images: ["assets/images/hemophilia.jpg","assets/images/Glauc.jpg","assets/images/chemist.gif","assets/images/VenusEarth.jpg", "assets/images/rabies.gif","assets/images/hygrometer.jpg","assets/images/bird.jpg","assets/images/feet.jpg","assets/images/protozoa.jpg"],
 
 	right: 0,
 	wrong: 0,
+	unanswered: 0
 	
 };
 //for random questions
@@ -38,14 +39,17 @@ function run () {
 //the decrement function
 function decrement() {
 
+	number--;
+//if number =-1 display 0
 	$(".timer").html("<h2><strong>" + "Time Remaining: " + number + " Seconds" + "</strong></h2>");
 	
-	number--;
+	
 		
 
-	if (number === 0){
+	if (number < 0){
 		//also want to display another screen for when the user doesn't guess in time, displaying the correct answer.
 		stop();
+		resetInterval();
 		timeUp();
 	}
 	else if (number <= 4){
@@ -132,7 +136,7 @@ function timeUp(){
 	$(".img").show();
 	$(".img").html("<img src=" + trivia.images[count] + " width = '400px'>");
 	count++;
-	trivia.wrong++;
+	trivia.unanswered++;
 	nextQuestion();
 }
 
@@ -142,6 +146,8 @@ function results(){
 	$(".timer").hide();
 	$(".question").html("<h2>CORRECT: " +trivia.right +" out of " +trivia.questions.length+"</h2>");
 	$(".img").html("<h2>INCORRECT: " + trivia.wrong +" out of " + trivia.questions.length +"</h2>");
+	$(".guesses").show();
+	$(".guesses").html("<h2>UNANSWERED: " + trivia.unanswered +" out of " + trivia.questions.length +"</h2>");
 	count = 0;
 	restart();
 
@@ -155,6 +161,7 @@ function restart(){
 		$(".restart").hide("<button type='button' class='btn btn-primary'>Play Again</button>");
 		trivia.right = 0;
 		trivia.wrong = 0;
+		trivia.unanswered = 0;
 		question();
 	});
 }
