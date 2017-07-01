@@ -6,6 +6,7 @@ body, html {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    font-family: 'Exo', sans-serif;
 }
 
 .head {
@@ -37,4 +38,14 @@ body, html {
 .lg {
 	font-size: 46px;
 	font-weight: bold;
+}
+.question h2 {
+  font-weight: bold;
+}
+.guesses1 h2, 
+.guesses2 h2,
+.guesses3 h2,
+.guesses4 h2 {
+  font-size: 24px;
+  font-style: italic;
 }

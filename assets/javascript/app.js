@@ -10,15 +10,27 @@ var trivia = {
 		fourth: ["D. syphilis","D. retinitis","D. 20th", "D. Jupiter and Saturn", "D. anthrax", "D. barometer","D. mammals","D. fertilize a lawn","D. a prion"]
 	},
 	correct: ["A. hemophilia","C. glaucoma", "C. 19th", "B. Venus and Earth","B. rabies","C. hygrometer","C. birds","C. soak ones feet","B. a protozoan"],
-	images: ["assets/images/hemophilia.jpg","assets/images/Glauc.jpg","assets/images/chemist.gif","assets/images/VenusEarth.jpg", "assets/images/rabies.gif","assets/images/hygrometer.jpg","assets/images/bird.jpg","assets/images/feet.jpg","assets/images/protozoa.jpg"],
+	images: ["assets/images/hemophilia.jpg","https://media1.giphy.com/media/DV4Df0SOkiLug/giphy.gif","assets/images/chemist.gif","assets/images/VenusEarth.jpg", "assets/images/rabies.gif","assets/images/hygrometer.jpg","assets/images/bird.jpg","assets/images/feet.jpg","assets/images/protozoa.jpg"],
 
 	right: 0,
 	wrong: 0,
 	unanswered: 0
 	
 };
-//for random questions
-var rand;
+//create API keys
+var API = "";
+var urlQuery = "http://api.giphy.com/v1/gifs/feqkVgjJpYtjy?api_key=" + API;
+
+//glaucoma gif
+
+// https://media1.giphy.com/media/DV4Df0SOkiLug/giphy.gif
+
+
+var correctSound = new Audio("assets/images/Correct-answer.mp3");
+var wrongSound = new Audio("assets/images/wrong.mp3");
+var timeSound = new Audio("assets/images/time.mp3");
+
+
 //question counter
 var count = 0;
 
@@ -40,14 +52,10 @@ function run () {
 function decrement() {
 
 	number--;
-//if number =-1 display 0
-	$(".timer").html("<h2><strong>" + "Time Remaining: " + number + " Seconds" + "</strong></h2>");
-	
-	
-		
 
-	if (number < 0){
-		//also want to display another screen for when the user doesn't guess in time, displaying the correct answer.
+	$(".timer").html("<h2>" + "Time Remaining: " + number + " Seconds" + "</h2>");
+	
+	if (number === 0){
 		stop();
 		resetInterval();
 		timeUp();
@@ -68,9 +76,7 @@ function resetInterval() {
 }
 //display question
 function question(){
-
-	console.log(count);
-	console.log(trivia.questions.length);
+	
 	if (count === trivia.questions.length){
 		results();
 	}
@@ -83,6 +89,8 @@ function question(){
 	
 	$(".guesses").show();
 	$(".img").hide();
+	$(".question").show();
+	$(".outcome").hide();
 
     $(".timer").css('visibility','visible');
 	
@@ -99,7 +107,7 @@ function question(){
 function incorrect(){
 
 	trivia.wrong++;
-	console.log("wrong " + trivia.wrong);
+	wrongSound.play();
 	$(".question").html("<h2 style='color:red'>Sorry, that was incorrect." +"<br>" + "The correct answer was: " + trivia.correct[count]+"</h2>");
 	$(".guesses").hide();
 	$(".img").show();
@@ -110,13 +118,9 @@ function incorrect(){
 function correct(){
 
 	trivia.right++;
-	
-	console.log(trivia.guesses.first[count]);
-	console.log(trivia.correct[count]);
-	console.log("right " + trivia.right);
-	
+	correctSound.play();
 	$(".question").html("<h2 style='color:green'>Good Job!" +"<br>" + "You Selected the Correct Answer: " + trivia.correct[count]+"</h2>");
-	$(".guesses").hide();
+	$(".guesses").hide()
 	$(".img").show();
 	$(".img").html("<img src=" + trivia.images[count] + " width = '400px'>");
 	nextQuestion();
@@ -126,12 +130,14 @@ function nextQuestion(){
 	
 	//setTimeout to run to display the next question
 	setTimeout(question, 5000);
+	
 	}
 
 //function to run when time runs out on the question
 function timeUp(){
-	$(".timer").css('visibility','hidden');
-	$(".question").html("<h2>You Ran Out of Time." +"<br>" + "The correct answer was: " + trivia.correct[count]+"</h2>");
+	timeSound.play();
+	$(".timer").html("<h2>You Ran Out of Time." +"<br>" + "The correct answer was: " + trivia.correct[count]+"</h2>");
+	$(".question").hide();
 	$(".guesses").hide();
 	$(".img").show();
 	$(".img").html("<img src=" + trivia.images[count] + " width = '400px'>");
@@ -143,11 +149,20 @@ function timeUp(){
 //function to run when game is over and load final page
 function results(){
 
-	$(".timer").hide();
-	$(".question").html("<h2>CORRECT: " +trivia.right +" out of " +trivia.questions.length+"</h2>");
-	$(".img").html("<h2>INCORRECT: " + trivia.wrong +" out of " + trivia.questions.length +"</h2>");
-	$(".guesses").show();
-	$(".guesses").html("<h2>UNANSWERED: " + trivia.unanswered +" out of " + trivia.questions.length +"</h2>");
+	$(".timer").css('visibility','hidden');
+	$(".img").hide();
+	
+	if(trivia.right > 5){
+		$(".question").html("Good Job!");
+	}
+	else{
+		$(".question").html("try to improve your score");
+	}
+//fix so results all show
+	$(".outcome").show();
+	$(".resultsC").html("<h2>CORRECT: " +trivia.right +" out of " +trivia.questions.length+"</h2>");
+	$(".resultsI").html("<h2>INCORRECT: " + trivia.wrong +" out of " + trivia.questions.length +"</h2>");
+	$(".resultsU").html("<h2>UNANSWERED: " + trivia.unanswered +" out of " + trivia.questions.length +"</h2>");
 	count = 0;
 	restart();
 
@@ -155,6 +170,8 @@ function results(){
 
 //give restart option
 function restart(){
+	
+	
 	$(".restart").html("<button type='button' class='btn btn-primary'>Play Again</button>");
 	$(".restart").show("<button type='button' class='btn btn-primary'>Play Again</button>");
 	$(".restart").on("click",function(){
