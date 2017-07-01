@@ -10,7 +10,7 @@ var trivia = {
 		fourth: ["D. syphilis","D. retinitis","D. 20th", "D. Jupiter and Saturn", "D. anthrax", "D. barometer","D. mammals","D. fertilize a lawn","D. a prion"]
 	},
 	correct: ["A. hemophilia","C. glaucoma", "C. 19th", "B. Venus and Earth","B. rabies","C. hygrometer","C. birds","C. soak ones feet","B. a protozoan"],
-	images: ["assets/images/hemophilia.jpg","https://media1.giphy.com/media/DV4Df0SOkiLug/giphy.gif","assets/images/chemist.gif","assets/images/VenusEarth.jpg", "assets/images/rabies.gif","assets/images/hygrometer.jpg","assets/images/bird.jpg","assets/images/feet.jpg","assets/images/protozoa.jpg"],
+	images: ["assets/images/hemophilia.jpg","https://media1.giphy.com/media/DV4Df0SOkiLug/giphy.gif","assets/images/chemist.gif","assets/images/VenusEarth.jpg", "assets/images/rabies.gif","https://media3.giphy.com/media/Lzn2w3c26klfa/200.webp#0-grid1","https://media2.giphy.com/media/RDYJPNDc70azK/200.webp#15-grid1","assets/images/feet.jpg","assets/images/protozoa.jpg"],
 
 	right: 0,
 	wrong: 0,
