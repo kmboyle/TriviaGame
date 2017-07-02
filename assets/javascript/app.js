@@ -129,7 +129,7 @@ function correct(){
 function nextQuestion(){
 	
 	//setTimeout to run to display the next question
-	setTimeout(question, 1000);
+	setTimeout(question, 5000);
 	
 	}
 
@@ -228,52 +228,7 @@ $(".guesses1").on("click", function(){
 		count++;
 	});
 
-$(".start").hover(function() {
-	$(this).css("cursor","pointer");
-	$(this).css("background-color","#1d375b");
-	$(this).css("color","#b5b6cb");
-	});
-$(".start").mouseout(function() {
-	$(this).css("background-color","#b5b6cb");
-	$(this).css("color","#1d375b");
-	});
-
-$(".guesses1").hover(function(){
-	$(this).css("cursor","pointer");
-	$(this).css("background-color","#1d375b");
-	$(this).css("color","#b5b6cb");	
-	});
-$(".guesses1").mouseout(function() {
-	$(this).css("background-color","#b5b6cb");
-	$(this).css("color","#1d375b");
-	});
-$(".guesses2").hover(function(){
-		$(this).css("cursor","pointer");
-		$(this).css("background-color","#1d375b");
-		$(this).css("color","#b5b6cb");	
-	});
-$(".guesses2").mouseout(function() {
-	$(this).css("background-color","#b5b6cb");
-	$(this).css("color","#1d375b");
-	});
-$(".guesses3").hover(function(){
-		$(this).css("cursor","pointer");
-		$(this).css("background-color","#1d375b");
-		$(this).css("color","#b5b6cb");	
-	});
-$(".guesses3").mouseout(function() {
-	$(this).css("background-color","#b5b6cb");
-	$(this).css("color","#1d375b");
-	});
-$(".guesses4").hover(function(){
-		$(this).css("cursor","pointer");
-		$(this).css("background-color","#1d375b");
-		$(this).css("color","#b5b6cb");	
-	});
-$(".guesses4").mouseout(function() {
-	$(this).css("background-color","#b5b6cb");
-	$(this).css("color","#1d375b");
-	});
+// 
 
 //starts game
 $(".start").on("click",function(){	
