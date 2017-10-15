@@ -18,8 +18,8 @@ var trivia = {
 	
 };
 //create API keys
-var API = "";
-var urlQuery = "http://api.giphy.com/v1/gifs/feqkVgjJpYtjy?api_key=" + API;
+// var API = "";
+// var urlQuery = "http://api.giphy.com/v1/gifs/feqkVgjJpYtjy?api_key=" + API;
 
 //glaucoma gif
 
