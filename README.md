@@ -5,3 +5,5 @@
 ●	Questions appear with a timer and correct answers are saved to total a result 
 
 ●	https://kmboyle.github.io/TriviaGame/
+
+![image not found](https://github.com/kmboyle/TriviaGame/blob/master/assets/images/ScienceGame.JPG)
